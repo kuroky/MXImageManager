@@ -11,20 +11,20 @@
 @interface UIImageView (MXAdd)
 
 /**
- <#Description#>
-
- @param urlStr <#urlStr description#>
- @param holder <#holder description#>
+ UIImageView 直接加载url图片
+ 
+ @param urlStr 图片地址
+ @param holder 占位图
  */
 - (void)mx_setImageUrl:(NSString *)urlStr
            palceholder:(NSString *)holder;
 
 /**
- <#Description#>
+ UIImageView 加载裁剪后的url图片
 
- @param urlStr <#urlStr description#>
- @param size <#size description#>
- @param holder <#holder description#>
+ @param urlStr 图片地址
+ @param size   ImageView显示size
+ @param holder 占位图
  */
 - (void)mx_setImageUrl:(NSString *)urlStr
             fittedSize:(CGSize)size

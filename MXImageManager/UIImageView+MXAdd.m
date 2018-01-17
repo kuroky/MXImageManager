@@ -9,10 +9,11 @@
 #import "UIImageView+MXAdd.h"
 #import <UIImageView+WebCache.h>
 #import "UIImage+MXAdd.h"
+#import "NSString+MXAdd.h"
 
 @implementation UIImageView (MXAdd)
 
-//MARK:- <#name#>
+//MARK:- UIImageView 直接加载url图片
 - (void)mx_setImageUrl:(NSString *)urlStr
            palceholder:(NSString *)holder {
     if (!urlStr.length) {
@@ -20,13 +21,13 @@
         return;
     }
     
-    urlStr = [self urlEncode:urlStr];
+    urlStr = [urlStr mx_stringByURLEncode];
     NSURL *url = [NSURL URLWithString:urlStr];
     [self setImageURL:url
           placeholder:[UIImage imageNamed:holder]];
 }
 
-//MARK:- <#name#>
+//MARK:- UIImageView 加载裁剪后的url图片
 - (void)mx_setImageUrl:(NSString *)urlStr
             fittedSize:(CGSize)size
            palceholder:(NSString *)holder {
@@ -34,12 +35,12 @@
         self.image = [UIImage imageNamed:holder];
         return;
     }
-    urlStr = [self urlEncode:urlStr];
-    NSString *sizeImagekey = [self cropFromPath:urlStr cropSize:size];
-    UIImage *cacheImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:sizeImagekey];
+    urlStr = [urlStr mx_stringByURLEncode];
+    NSString *imageKey = [self urlString:urlStr appending:size];
+    UIImage *cacheImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:imageKey];
     if (cacheImage) {
         self.image = cacheImage;
-        [self setNeedsLayout];
+        //[self setNeedsLayout];
         return;
     }
     
@@ -55,14 +56,17 @@
                        if (image) {
                            [weakself cropDownloadImage:image
                                             expectSize:size
-                                               saveKey:sizeImagekey];
+                                               saveKey:imageKey];
+                           
                            [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString
                                                                      fromDisk:NO
                                                                withCompletion:nil];
+                            
                        }
                        else {
+                           NSLog(@"fail url : %@", imageURL);
                            weakself.image = [UIImage imageNamed:holder];
-                           [weakself setNeedsLayout];
+                           //[weakself setNeedsLayout];
                        }
                    }];
 }
@@ -74,30 +78,12 @@
                      options:SDWebImageRetryFailed | SDWebImageLowPriority];
 }
 
-//MARK:- Url Encode
-- (NSString *)urlEncode:(NSString *)str {
-    NSCharacterSet *charSet = [NSCharacterSet URLFragmentAllowedCharacterSet];
-    //"#%<>[\]^`{|}
-    NSString *newString = [str stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-    if (newString) {
-        return newString;
-    }
-    return str;
-}
-
-- (NSString *)cropFromPath:(NSString *)path
-                  cropSize:(CGSize)size {
-    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width,size.height];
-    NSString *pathStr = [[path stringByDeletingPathExtension] stringByAppendingString:sizeStr];
-    NSString *extensionStr = [path pathExtension];
-    NSString *str = @"";
-    if (extensionStr) {
-        str = [pathStr stringByAppendingPathExtension:extensionStr];
-    }
-    else {
-        str = pathStr;
-    }
-    return str;
+- (NSString *)urlString:(NSString *)urlStr
+              appending:(CGSize)size {
+    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
+    NSString *pathStr = [[urlStr stringByDeletingPathExtension] stringByAppendingString:sizeStr];
+    NSString *extensionStr = [urlStr pathExtension];
+    return extensionStr ? [pathStr stringByAppendingPathExtension:extensionStr] : pathStr;
 }
 
 //MARK:- 本地裁切图片
