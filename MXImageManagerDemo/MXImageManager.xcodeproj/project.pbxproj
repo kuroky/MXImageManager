@@ -14,9 +14,8 @@
 		5B6C0DC0200C9F0F0084EBCA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DBF200C9F0F0084EBCA /* main.m */; };
 		5B6C0DCB200CA65D0084EBCA /* MXImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DCA200CA65D0084EBCA /* MXImageManager.m */; };
 		5B6C0DCE200CB5500084EBCA /* UIImageView+MXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */; };
-		5B6C0DD1200CB7B10084EBCA /* UIImage+MXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DD0200CB7B10084EBCA /* UIImage+MXAdd.m */; };
 		5B767DC3200D904900C6AE3A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B767DC2200D904900C6AE3A /* ViewController.xib */; };
-		5B767DC6200DDD4900C6AE3A /* NSString+MXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B767DC5200DDD4900C6AE3A /* NSString+MXAdd.m */; };
+		5BB896C1201078330082ECDC /* ImageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB896BF201078330082ECDC /* ImageListViewController.m */; };
 		70C49C557C2C3AA194BD9CC0 /* libPods-MXImageManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E3B3C93928985CCEE4E6B2 /* libPods-MXImageManager.a */; };
 /* End PBXBuildFile section */
 
@@ -34,11 +33,9 @@
 		5B6C0DCA200CA65D0084EBCA /* MXImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXImageManager.m; sourceTree = "<group>"; };
 		5B6C0DCC200CB5500084EBCA /* UIImageView+MXAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MXAdd.h"; sourceTree = "<group>"; };
 		5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MXAdd.m"; sourceTree = "<group>"; };
-		5B6C0DCF200CB7B10084EBCA /* UIImage+MXAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+MXAdd.h"; sourceTree = "<group>"; };
-		5B6C0DD0200CB7B10084EBCA /* UIImage+MXAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MXAdd.m"; sourceTree = "<group>"; };
 		5B767DC2200D904900C6AE3A /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		5B767DC4200DDD4900C6AE3A /* NSString+MXAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+MXAdd.h"; sourceTree = "<group>"; };
-		5B767DC5200DDD4900C6AE3A /* NSString+MXAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+MXAdd.m"; sourceTree = "<group>"; };
+		5BB896BE201078330082ECDC /* ImageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageListViewController.h; sourceTree = "<group>"; };
+		5BB896BF201078330082ECDC /* ImageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageListViewController.m; sourceTree = "<group>"; };
 		83E3B3C93928985CCEE4E6B2 /* libPods-MXImageManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MXImageManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9515B272988F37DE0994641E /* Pods-MXImageManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-MXImageManager/Pods-MXImageManager.release.xcconfig"; sourceTree = "<group>"; };
 		A3322EB8974159C2446C3437 /* Pods-MXImageManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MXImageManager/Pods-MXImageManager.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +80,8 @@
 				5B6C0DB3200C9F0F0084EBCA /* ViewController.h */,
 				5B6C0DB4200C9F0F0084EBCA /* ViewController.m */,
 				5B767DC2200D904900C6AE3A /* ViewController.xib */,
+				5BB896BE201078330082ECDC /* ImageListViewController.h */,
+				5BB896BF201078330082ECDC /* ImageListViewController.m */,
 				5B6C0DB9200C9F0F0084EBCA /* Assets.xcassets */,
 				5B6C0DBB200C9F0F0084EBCA /* LaunchScreen.storyboard */,
 				5B6C0DBE200C9F0F0084EBCA /* Info.plist */,
@@ -94,10 +93,6 @@
 		5B6C0DC8200CA64D0084EBCA /* MXImageManager */ = {
 			isa = PBXGroup;
 			children = (
-				5B767DC4200DDD4900C6AE3A /* NSString+MXAdd.h */,
-				5B767DC5200DDD4900C6AE3A /* NSString+MXAdd.m */,
-				5B6C0DCF200CB7B10084EBCA /* UIImage+MXAdd.h */,
-				5B6C0DD0200CB7B10084EBCA /* UIImage+MXAdd.m */,
 				5B6C0DCC200CB5500084EBCA /* UIImageView+MXAdd.h */,
 				5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */,
 				5B6C0DC9200CA65D0084EBCA /* MXImageManager.h */,
@@ -249,12 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BB896C1201078330082ECDC /* ImageListViewController.m in Sources */,
 				5B6C0DB5200C9F0F0084EBCA /* ViewController.m in Sources */,
 				5B6C0DC0200C9F0F0084EBCA /* main.m in Sources */,
-				5B767DC6200DDD4900C6AE3A /* NSString+MXAdd.m in Sources */,
 				5B6C0DCB200CA65D0084EBCA /* MXImageManager.m in Sources */,
 				5B6C0DB2200C9F0F0084EBCA /* AppDelegate.m in Sources */,
-				5B6C0DD1200CB7B10084EBCA /* UIImage+MXAdd.m in Sources */,
 				5B6C0DCE200CB5500084EBCA /* UIImageView+MXAdd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

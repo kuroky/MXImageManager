@@ -7,15 +7,15 @@
 //
 
 #import "ViewController.h"
-#import <Masonry.h>
-#import "UIImageView+MXAdd.h"
+#import "MXImageManager.h"
+#import "ImageListViewController.h"
 
 static NSString *const kCellId  =   @"cellid";
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataList;
+@property (strong, nonatomic) NSArray *dataList;
 
 @end
 
@@ -24,15 +24,9 @@ static NSString *const kCellId  =   @"cellid";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Image";
-    self.dataList = [NSMutableArray array];
-    NSInteger index = 40;
-    for (NSInteger i = 0; i < index; i++) {
-        NSString *url = [NSString stringWithFormat:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage0%02ld.jpg", (long)i];
-        [self.dataList addObject:url];
-    }
-    
-    [self.tableView registerClass:[TestTableCell class] forCellReuseIdentifier:kCellId];
-    self.tableView.rowHeight = 350;
+    self.dataList = @[@"images", @"cache size", @"remove", @"4"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellId];
+    self.tableView.rowHeight = 50;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -40,9 +34,23 @@ static NSString *const kCellId  =   @"cellid";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TestTableCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId forIndexPath:indexPath];
-    [cell setCellImage:self.dataList[indexPath.row]];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellId forIndexPath:indexPath];
+    cell.textLabel.text = self.dataList[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *index = self.dataList[indexPath.row];
+    if ([index isEqualToString:@"images"]) {
+        [self.navigationController pushViewController:[ImageListViewController new] animated:YES];
+    }
+    else if ([index isEqualToString:@"cache size"]) {
+        NSLog(@"size: %.2fM", [MXImageManager shareImageManager].mx_getCacheSize);
+    }
+    else if ([index isEqualToString:@"remove"]) {
+        [[MXImageManager shareImageManager] mx_removeDiskImageForKey:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage002.jpg"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,41 +59,3 @@ static NSString *const kCellId  =   @"cellid";
 }
 
 @end
-
-@interface TestTableCell ()
-
-@property (strong, nonatomic) UIImageView *cellImageView;
-@property (assign, nonatomic) CGFloat imgWidth;
-@property (assign, nonatomic) CGFloat imgHeight;
-
-@end
-
-@implementation TestTableCell
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)setup {
-    self.cellImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.contentView addSubview:self.cellImageView];
-    self.cellImageView.backgroundColor = [UIColor lightGrayColor];
-    [self.cellImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.insets = UIEdgeInsetsMake(10, 10, 10, 10);
-    }];
-    self.imgWidth = [UIScreen mainScreen].bounds.size.width - 20;
-    self.imgHeight = 350 - 20;
-}
-
-- (void)setCellImage:(NSString *)imgUrl {
-    [self.cellImageView mx_setImageUrl:imgUrl
-                            fittedSize:CGSizeMake(self.imgWidth, self.imgHeight)
-                           palceholder:nil];
-}
-
-@end
-

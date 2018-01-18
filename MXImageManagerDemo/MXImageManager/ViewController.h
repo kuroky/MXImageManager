@@ -13,8 +13,3 @@
 
 @end
 
-@interface TestTableCell : UITableViewCell
-
-- (void)setCellImage:(NSString *)imgUrl;
-
-@end

@@ -7,9 +7,7 @@
 //
 
 #import "UIImageView+MXAdd.h"
-#import <UIImageView+WebCache.h>
-#import "UIImage+MXAdd.h"
-#import "NSString+MXAdd.h"
+#import <YYWebImage/YYWebImage.h>
 
 @implementation UIImageView (MXAdd)
 
@@ -21,7 +19,7 @@
         return;
     }
     
-    urlStr = [urlStr mx_stringByURLEncode];
+    //urlStr = [urlStr mx_stringByURLEncode];
     NSURL *url = [NSURL URLWithString:urlStr];
     [self setImageURL:url
           placeholder:[UIImage imageNamed:holder]];
@@ -35,67 +33,24 @@
         self.image = [UIImage imageNamed:holder];
         return;
     }
-    urlStr = [urlStr mx_stringByURLEncode];
-    NSString *imageKey = [self urlString:urlStr appending:size];
-    UIImage *cacheImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:imageKey];
-    if (cacheImage) {
-        self.image = cacheImage;
-        //[self setNeedsLayout];
-        return;
-    }
+    //urlStr = [urlStr mx_stringByURLEncode];
     
-    __weak __typeof(self)weakself = self;
-    NSURL *url = [NSURL URLWithString:urlStr];
-    [self sd_setImageWithURL:url
-            placeholderImage:[UIImage imageNamed:holder]
-                     options:SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageAvoidAutoSetImage
-                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                       if (!weakself) {
-                           return;
-                       }
-                       if (image) {
-                           [weakself cropDownloadImage:image
-                                            expectSize:size
-                                               saveKey:imageKey];
-                           
-                           [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString
-                                                                     fromDisk:NO
-                                                               withCompletion:nil];
-                            
-                       }
-                       else {
-                           NSLog(@"fail url : %@", imageURL);
-                           weakself.image = [UIImage imageNamed:holder];
-                           //[weakself setNeedsLayout];
-                       }
-                   }];
+    [self yy_setImageWithURL:[NSURL URLWithString:urlStr]
+                 placeholder:[UIImage imageNamed:holder]
+                     options:YYWebImageOptionSetImageWithFadeAnimation
+                    progress:nil
+                   transform:^UIImage * _Nullable(UIImage * _Nonnull image, NSURL * _Nonnull url) {
+                       image = [image yy_imageByResizeToSize:size
+                                                 contentMode:UIViewContentModeCenter];
+                       return image;
+                   }
+                  completion:nil];
 }
 
 - (void)setImageURL:(NSURL *)url
         placeholder:(UIImage *)placeholder {
-    [self sd_setImageWithURL:url
-            placeholderImage:placeholder
-                     options:SDWebImageRetryFailed | SDWebImageLowPriority];
-}
-
-- (NSString *)urlString:(NSString *)urlStr
-              appending:(CGSize)size {
-    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
-    NSString *pathStr = [[urlStr stringByDeletingPathExtension] stringByAppendingString:sizeStr];
-    NSString *extensionStr = [urlStr pathExtension];
-    return extensionStr ? [pathStr stringByAppendingPathExtension:extensionStr] : pathStr;
-}
-
-//MARK:- 本地裁切图片
-- (void)cropDownloadImage:(UIImage *)originImage
-               expectSize:(CGSize)size
-                  saveKey:(NSString *)key {
-    UIImage *resizeImage = [originImage mx_imageResize:size
-                                           contentMode:UIViewContentModeScaleAspectFill];
-    [[SDWebImageManager sharedManager] saveImageToCache:resizeImage
-                                                 forURL:[NSURL URLWithString:key]];
-    self.image = resizeImage;
-    [self setNeedsLayout];
+    [self yy_setImageWithURL:url
+                     options:YYWebImageOptionSetImageWithFadeAnimation];
 }
 
 @end
