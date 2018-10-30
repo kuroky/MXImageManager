@@ -13,7 +13,6 @@
 		5B6C0DBD200C9F0F0084EBCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B6C0DBB200C9F0F0084EBCA /* LaunchScreen.storyboard */; };
 		5B6C0DC0200C9F0F0084EBCA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DBF200C9F0F0084EBCA /* main.m */; };
 		5B6C0DCB200CA65D0084EBCA /* MXImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DCA200CA65D0084EBCA /* MXImageManager.m */; };
-		5B6C0DCE200CB5500084EBCA /* UIImageView+MXAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */; };
 		5B767DC3200D904900C6AE3A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B767DC2200D904900C6AE3A /* ViewController.xib */; };
 		5BB896C1201078330082ECDC /* ImageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB896BF201078330082ECDC /* ImageListViewController.m */; };
 		70C49C557C2C3AA194BD9CC0 /* libPods-MXImageManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E3B3C93928985CCEE4E6B2 /* libPods-MXImageManager.a */; };
@@ -31,8 +30,6 @@
 		5B6C0DBF200C9F0F0084EBCA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5B6C0DC9200CA65D0084EBCA /* MXImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXImageManager.h; sourceTree = "<group>"; };
 		5B6C0DCA200CA65D0084EBCA /* MXImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXImageManager.m; sourceTree = "<group>"; };
-		5B6C0DCC200CB5500084EBCA /* UIImageView+MXAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MXAdd.h"; sourceTree = "<group>"; };
-		5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MXAdd.m"; sourceTree = "<group>"; };
 		5B767DC2200D904900C6AE3A /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		5BB896BE201078330082ECDC /* ImageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageListViewController.h; sourceTree = "<group>"; };
 		5BB896BF201078330082ECDC /* ImageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageListViewController.m; sourceTree = "<group>"; };
@@ -93,8 +90,6 @@
 		5B6C0DC8200CA64D0084EBCA /* MXImageManager */ = {
 			isa = PBXGroup;
 			children = (
-				5B6C0DCC200CB5500084EBCA /* UIImageView+MXAdd.h */,
-				5B6C0DCD200CB5500084EBCA /* UIImageView+MXAdd.m */,
 				5B6C0DC9200CA65D0084EBCA /* MXImageManager.h */,
 				5B6C0DCA200CA65D0084EBCA /* MXImageManager.m */,
 			);
@@ -130,8 +125,6 @@
 				5B6C0DA9200C9F0F0084EBCA /* Sources */,
 				5B6C0DAA200C9F0F0084EBCA /* Frameworks */,
 				5B6C0DAB200C9F0F0084EBCA /* Resources */,
-				0EE7CE2FE8252568E7BB79AB /* [CP] Embed Pods Frameworks */,
-				844CCC1B4F28FFC61E8BEC6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -148,7 +141,7 @@
 		5B6C0DA5200C9F0F0084EBCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = kuroky;
 				TargetAttributes = {
 					5B6C0DAC200C9F0F0084EBCA = {
@@ -189,21 +182,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0EE7CE2FE8252568E7BB79AB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MXImageManager/Pods-MXImageManager-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		706F2FEA2D9E85FE160A85F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -222,21 +200,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		844CCC1B4F28FFC61E8BEC6E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MXImageManager/Pods-MXImageManager-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -249,7 +212,6 @@
 				5B6C0DC0200C9F0F0084EBCA /* main.m in Sources */,
 				5B6C0DCB200CA65D0084EBCA /* MXImageManager.m in Sources */,
 				5B6C0DB2200C9F0F0084EBCA /* AppDelegate.m in Sources */,
-				5B6C0DCE200CB5500084EBCA /* UIImageView+MXAdd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +243,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -288,6 +251,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -336,6 +300,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -343,6 +308,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

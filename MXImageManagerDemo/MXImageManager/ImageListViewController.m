@@ -8,7 +8,7 @@
 
 #import "ImageListViewController.h"
 #import <Masonry.h>
-#import "UIImageView+MXAdd.h"
+#import "MXImageManager.h"
 #import <YYImage/YYImage.h>
 
 static NSString *const kCellId  =   @"cellid";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '68A0A55171E8888862D70FDB2C6B18C5'
-               BlueprintName = 'Pods-MXImageManager'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-MXImageManager.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FF0245C9045A721C66A29C3172879935"
+               BlueprintName = "Pods-MXImageManager"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libPods-MXImageManager.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

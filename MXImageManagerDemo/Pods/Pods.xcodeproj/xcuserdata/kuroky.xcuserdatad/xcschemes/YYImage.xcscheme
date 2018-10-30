@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FD1C9841CD94CE4ADB83C18B12D6386A'
-               BlueprintName = 'YYImage'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libYYImage.a'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FFFC528CE3E802ED1A7D4A62A9B7E78F"
+               BlueprintName = "YYImage"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "libYYImage.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

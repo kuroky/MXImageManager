@@ -59,3 +59,27 @@
 - (CGFloat)mx_getCacheSize;
 
 @end
+
+@interface UIImageView (MXAdd)
+
+/**
+ UIImageView 直接加载url图片
+ 
+ @param urlStr 图片地址
+ @param holder 占位图
+ */
+- (void)mx_setImageUrl:(NSString *)urlStr
+           palceholder:(NSString *)holder;
+
+/**
+ UIImageView 加载裁剪后的url图片
+ 
+ @param urlStr 图片地址
+ @param size   ImageView显示size
+ @param holder 占位图
+ */
+- (void)mx_setImageUrl:(NSString *)urlStr
+            fittedSize:(CGSize)size
+           palceholder:(NSString *)holder;
+
+@end
