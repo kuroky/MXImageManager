@@ -9,8 +9,6 @@ target 'MXImageManager' do
 
   # Pods for MXImageManager
   pod 'Masonry', '1.1.0'
-  pod 'YYWebImage', '1.0.5'
-  #pod 'YYImage', 'po1.0.4'
   pod 'SDWebImage', '4.2.2'
 
 end

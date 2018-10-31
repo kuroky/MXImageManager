@@ -9,7 +9,6 @@
 #import "ImageListViewController.h"
 #import <Masonry.h>
 #import "MXImageManager.h"
-#import <YYImage/YYImage.h>
 
 static NSString *const kCellId  =   @"cellid";
 
@@ -27,11 +26,14 @@ static NSString *const kCellId  =   @"cellid";
     self.navigationItem.title = @"Images";
     self.dataList = [NSMutableArray array];
     NSInteger index = 40;
-    for (NSInteger i = 0; i < index; i++) {
-        NSString *url = [NSString stringWithFormat:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage0%02ld.jpg", (long)i];
-        [self.dataList addObject:url];
-    }
+    //for (NSInteger i = 0; i < index; i++) {
+    //    NSString *url = [NSString stringWithFormat:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage0%02ld.jpg", (long)i];
+    //    [self.dataList addObject:url];
+    //}
     
+    
+    
+    [self.dataList addObject:@"http://www.onegreen.net/maps/Upload_maps/201412/2014120107280906.jpg"];
     [self.tableView registerClass:[TestTableCell class] forCellReuseIdentifier:kCellId];
     self.tableView.rowHeight = 350;
 }
@@ -61,7 +63,7 @@ static NSString *const kCellId  =   @"cellid";
 
 @interface TestTableCell ()
 
-@property (strong, nonatomic) UIImageView *cellImageView;
+@property (weak, nonatomic) UIImageView *cellImageView;
 @property (assign, nonatomic) CGFloat imgWidth;
 @property (assign, nonatomic) CGFloat imgHeight;
 
@@ -78,20 +80,25 @@ static NSString *const kCellId  =   @"cellid";
 }
 
 - (void)setup {
-    self.cellImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.contentView addSubview:self.cellImageView];
-    self.cellImageView.backgroundColor = [UIColor lightGrayColor];
-    [self.cellImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIImageView *cimageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [self.contentView addSubview:cimageView];
+    cimageView.backgroundColor = [UIColor lightGrayColor];
+    [cimageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.insets = UIEdgeInsetsMake(10, 10, 10, 10);
     }];
+    self.cellImageView = cimageView;
     self.imgWidth = [UIScreen mainScreen].bounds.size.width - 20;
     self.imgHeight = 350 - 20;
 }
 
 - (void)setCellImage:(NSString *)imgUrl {
-    [self.cellImageView mx_setImageUrl:imgUrl
-                            fittedSize:CGSizeMake(self.imgWidth, self.imgHeight)
-                           palceholder:nil];
+    [self.cellImageView mx_setImageUrl:imgUrl fittedSize:CGSizeMake(self.imgWidth, self.imgHeight) palceholder:nil];
+}
+
+- (void)dealloc {
+    
+    
+    
 }
 
 @end

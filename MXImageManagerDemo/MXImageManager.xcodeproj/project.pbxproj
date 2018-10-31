@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B5A269321897EE500A1B336 /* UIImage+EMCompress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A269221897EE500A1B336 /* UIImage+EMCompress.m */; };
+		5B5A269521897F0C00A1B336 /* 2014120107280906.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A269421897F0C00A1B336 /* 2014120107280906.jpg */; };
+		5B5A269821897F6D00A1B336 /* ImageTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A269621897F6D00A1B336 /* ImageTestViewController.m */; };
+		5B5A269B21897FDD00A1B336 /* MXBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A269A21897FDD00A1B336 /* MXBaseTableViewController.m */; };
+		5B5A269F2189809000A1B336 /* ImageTestFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A269C2189808F00A1B336 /* ImageTestFooter.xib */; };
+		5B5A26A02189809000A1B336 /* ImageTestFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A269D2189809000A1B336 /* ImageTestFooter.m */; };
+		5B5A26A3218980C500A1B336 /* UIImage+EMAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A26A2218980C500A1B336 /* UIImage+EMAdd.m */; };
 		5B6C0DB2200C9F0F0084EBCA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DB1200C9F0F0084EBCA /* AppDelegate.m */; };
 		5B6C0DB5200C9F0F0084EBCA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C0DB4200C9F0F0084EBCA /* ViewController.m */; };
 		5B6C0DBA200C9F0F0084EBCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B6C0DB9200C9F0F0084EBCA /* Assets.xcassets */; };
@@ -19,6 +26,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B5A269121897EE500A1B336 /* UIImage+EMCompress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EMCompress.h"; sourceTree = "<group>"; };
+		5B5A269221897EE500A1B336 /* UIImage+EMCompress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EMCompress.m"; sourceTree = "<group>"; };
+		5B5A269421897F0C00A1B336 /* 2014120107280906.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2014120107280906.jpg; sourceTree = "<group>"; };
+		5B5A269621897F6D00A1B336 /* ImageTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTestViewController.m; sourceTree = "<group>"; };
+		5B5A269721897F6D00A1B336 /* ImageTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTestViewController.h; sourceTree = "<group>"; };
+		5B5A269921897FDD00A1B336 /* MXBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXBaseTableViewController.h; sourceTree = "<group>"; };
+		5B5A269A21897FDD00A1B336 /* MXBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXBaseTableViewController.m; sourceTree = "<group>"; };
+		5B5A269C2189808F00A1B336 /* ImageTestFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageTestFooter.xib; sourceTree = "<group>"; };
+		5B5A269D2189809000A1B336 /* ImageTestFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTestFooter.m; sourceTree = "<group>"; };
+		5B5A269E2189809000A1B336 /* ImageTestFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTestFooter.h; sourceTree = "<group>"; };
+		5B5A26A1218980C500A1B336 /* UIImage+EMAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EMAdd.h"; sourceTree = "<group>"; };
+		5B5A26A2218980C500A1B336 /* UIImage+EMAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+EMAdd.m"; sourceTree = "<group>"; };
 		5B6C0DAD200C9F0F0084EBCA /* MXImageManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MXImageManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6C0DB0200C9F0F0084EBCA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5B6C0DB1200C9F0F0084EBCA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +90,18 @@
 		5B6C0DAF200C9F0F0084EBCA /* MXImageManager */ = {
 			isa = PBXGroup;
 			children = (
+				5B5A269421897F0C00A1B336 /* 2014120107280906.jpg */,
+				5B5A26A1218980C500A1B336 /* UIImage+EMAdd.h */,
+				5B5A26A2218980C500A1B336 /* UIImage+EMAdd.m */,
+				5B5A269121897EE500A1B336 /* UIImage+EMCompress.h */,
+				5B5A269221897EE500A1B336 /* UIImage+EMCompress.m */,
+				5B5A269921897FDD00A1B336 /* MXBaseTableViewController.h */,
+				5B5A269A21897FDD00A1B336 /* MXBaseTableViewController.m */,
+				5B5A269E2189809000A1B336 /* ImageTestFooter.h */,
+				5B5A269D2189809000A1B336 /* ImageTestFooter.m */,
+				5B5A269C2189808F00A1B336 /* ImageTestFooter.xib */,
+				5B5A269721897F6D00A1B336 /* ImageTestViewController.h */,
+				5B5A269621897F6D00A1B336 /* ImageTestViewController.m */,
 				5B6C0DC8200CA64D0084EBCA /* MXImageManager */,
 				5B6C0DB0200C9F0F0084EBCA /* AppDelegate.h */,
 				5B6C0DB1200C9F0F0084EBCA /* AppDelegate.m */,
@@ -175,6 +206,8 @@
 			files = (
 				5B6C0DBD200C9F0F0084EBCA /* LaunchScreen.storyboard in Resources */,
 				5B767DC3200D904900C6AE3A /* ViewController.xib in Resources */,
+				5B5A269F2189809000A1B336 /* ImageTestFooter.xib in Resources */,
+				5B5A269521897F0C00A1B336 /* 2014120107280906.jpg in Resources */,
 				5B6C0DBA200C9F0F0084EBCA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,11 +240,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B5A26A02189809000A1B336 /* ImageTestFooter.m in Sources */,
 				5BB896C1201078330082ECDC /* ImageListViewController.m in Sources */,
 				5B6C0DB5200C9F0F0084EBCA /* ViewController.m in Sources */,
 				5B6C0DC0200C9F0F0084EBCA /* main.m in Sources */,
+				5B5A269821897F6D00A1B336 /* ImageTestViewController.m in Sources */,
 				5B6C0DCB200CA65D0084EBCA /* MXImageManager.m in Sources */,
+				5B5A269B21897FDD00A1B336 /* MXBaseTableViewController.m in Sources */,
 				5B6C0DB2200C9F0F0084EBCA /* AppDelegate.m in Sources */,
+				5B5A269321897EE500A1B336 /* UIImage+EMCompress.m in Sources */,
+				5B5A26A3218980C500A1B336 /* UIImage+EMAdd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "MXImageManager.h"
 #import "ImageListViewController.h"
+#import "ImageTestViewController.h"
 
 static NSString *const kCellId  =   @"cellid";
 
@@ -24,7 +25,7 @@ static NSString *const kCellId  =   @"cellid";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Image";
-    self.dataList = @[@"images", @"cache size", @"remove", @"4"];
+    self.dataList = @[@"images", @"cache size", @"remove", @"clearCache", @"compress"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kCellId];
     self.tableView.rowHeight = 50;
 }
@@ -50,6 +51,12 @@ static NSString *const kCellId  =   @"cellid";
     }
     else if ([index isEqualToString:@"remove"]) {
         [[MXImageManager shareImageManager] mx_removeDiskImageForKey:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage002.jpg"];
+    }
+    else if ([index isEqualToString:@"clearCache"]) {
+        [[MXImageManager shareImageManager] mx_clearCacheCompletion:nil];
+    }
+    else if ([index isEqualToString:@"compress"]) {
+        [self.navigationController pushViewController:[ImageTestViewController new] animated:YES];
     }
 }
 

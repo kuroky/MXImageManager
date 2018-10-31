@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +23,10 @@
     UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
+    
+    [SDWebImageManager sharedManager].imageCache.config.shouldCacheImagesInMemory = NO;
+    [SDWebImageManager sharedManager].imageCache.config.shouldDecompressImages = NO;
+    //[[SDWebImageDownloader sharedDownloader] setShouldDecompressImages:NO];
     return YES;
 }
 

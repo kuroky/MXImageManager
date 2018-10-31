@@ -7,8 +7,8 @@
 //
 
 #import "MXImageManager.h"
-#import <YYWebImage/YYWebImage.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImage+EMAdd.h"
 
 typedef NS_ENUM(NSUInteger, MXImageCacheType) {
     MXImageCacheTypeNone   = 0,
@@ -30,13 +30,16 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
 
 //MARK:- 将图片缓存到磁盘
 - (void)mx_saveImageToDisk:(UIImage *)image
-              withImageKey:(NSString *)key {
+              withImageKey:(NSString *)key
+                completion:(void (^)(BOOL success))completion {
     if (!key || !key.length || !image) {
+        completion ? completion(NO) : nil;
         return;
     }
     
+    // SD的操作也可能失败，默认成功
     [[SDWebImageManager sharedManager].imageCache storeImage:image forKey:key toDisk:YES completion:^{
-        [[SDWebImageManager sharedManager].imageCache removeImageForKey:key fromDisk:NO withCompletion:nil];
+        completion ? completion(YES) : nil;
     }];
 }
 
@@ -45,9 +48,15 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
     [[SDWebImageManager sharedManager].imageCache removeImageForKey:key fromDisk:YES withCompletion:nil];
 }
 
+//MARK:- 将图片缓存到内存
+- (void)mx_saveImageToMemory:(UIImage *)image
+                withImageKey:(NSString *)key {
+    // 不关心成功失败
+    [[SDWebImageManager sharedManager].imageCache storeImage:image forKey:key toDisk:YES completion:nil];
+}
+
 //MARK:- 移除内存缓存图片
 - (void)mx_removeMemoryImageForKey:(NSString *)key {
-    //[self mx_removeImageForKey:key withCacheType:MXImageCacheTypeMemory];
     [[SDWebImageManager sharedManager].imageCache removeImageForKey:key fromDisk:NO withCompletion:nil];
 }
 
@@ -62,7 +71,7 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
 
 //MARK:- 获取WebImageManager缓存大小
 - (CGFloat)mx_getCacheSize {
-    return [SDWebImageManager sharedManager].imageCache.getSize;
+    return [SDWebImageManager sharedManager].imageCache.getSize * 0.001 * 0.001;
 }
 
 //MARK:- 清理 WebImageManager图片缓存
@@ -79,12 +88,12 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
 //MARK:- UIImageView 直接加载url图片
 - (void)mx_setImageUrl:(NSString *)urlStr
            palceholder:(NSString *)holder {
-    if (!urlStr.length) {
+    if (!urlStr.length || !urlStr) {
         self.image = [UIImage imageNamed:holder];
         return;
     }
     
-    //urlStr = [urlStr mx_stringByURLEncode];
+    urlStr = [self stringByURLEncode:urlStr];
     NSURL *url = [NSURL URLWithString:urlStr];
     [self setImageURL:url
           placeholder:[UIImage imageNamed:holder]];
@@ -99,26 +108,13 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
         return;
     }
     
-    urlStr = [self mx_stringByURLEncode:urlStr];
+    urlStr = [self stringByURLEncode:urlStr];
     NSString *cacheUrl = [self cropFromPath:urlStr cropSize:size];
     UIImage *cacheImg = [[MXImageManager shareImageManager] mx_getImageForKey:cacheUrl];
     if (cacheImg) {
         self.image = cacheImg;
         return;
     }
-    
-    /*
-    [self yy_setImageWithURL:[NSURL URLWithString:urlStr]
-                 placeholder:[UIImage imageNamed:holder]
-                     options:YYWebImageOptionSetImageWithFadeAnimation
-                    progress:nil
-                   transform:^UIImage * _Nullable(UIImage * _Nonnull image, NSURL * _Nonnull url) {
-                       image = [image yy_imageByResizeToSize:size
-                                                 contentMode:UIViewContentModeCenter];
-                       return image;
-                   }
-                  completion:nil];
-    */
     
     __weak __typeof(self)wself = self;
     [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
@@ -128,21 +124,49 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
                        if (!wself) {
                            return;
                        }
+                       
                        if (image) {
-                           wself.image = image;
+                           UIImage *img = [self imageByResizeToSize:size withImage:image];
+                           wself.image = img;
                            [wself setNeedsLayout];
-                           //[wself cropDownloadImage:image
-                           //              expectSize:size
-                           //                 saveKey:sizeImagekey];
-                           [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString fromDisk:NO withCompletion:nil];
-                       }
-                       else {
-                           wself.image = [UIImage imageNamed:holder];
-                           [wself setNeedsLayout];
+                           [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
+                                                                                  fromDisk:YES
+                                                                            withCompletion:nil];
+                           [[MXImageManager shareImageManager] mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
                    }];
 }
 
+//MARK:- 直接加载url图片(带block)
+- (void)mx_setImageStr:(NSString *)urlStr
+           placeholder:(NSString *)holder
+            completion:(void (^)(UIImage *image))completion {
+    if (!urlStr.length || !urlStr) {
+        completion ? completion(nil) : nil;
+        return;
+    }
+    
+    urlStr = [self stringByURLEncode:urlStr];
+    UIImage *cacheImg = [[MXImageManager shareImageManager] mx_getImageForKey:urlStr];
+    if (cacheImg) {
+        completion ? completion(cacheImg) : nil;
+        return;
+    }
+    
+    __weak __typeof(self)wself = self;
+    [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
+            placeholderImage:[UIImage imageNamed:holder]
+                     options:SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageAvoidAutoSetImage
+                   completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                       if (!wself) {
+                           completion ? completion(nil) : nil;
+                           return;
+                       }
+                       completion ? completion(image) : nil;
+                   }];
+}
+
+//MARK:- Private
 - (void)setImageURL:(NSURL *)url
         placeholder:(UIImage *)placeholder {
     [self sd_setImageWithURL:url
@@ -150,17 +174,26 @@ typedef NS_ENUM(NSUInteger, MXImageCacheType) {
                      options:SDWebImageRetryFailed | SDWebImageLowPriority];
 }
 
-- (NSString *)mx_stringByURLEncode:(NSString *)str {
+- (NSString *)stringByURLEncode:(NSString *)str {
     NSCharacterSet *charSet = [NSCharacterSet URLFragmentAllowedCharacterSet];
     return [str stringByAddingPercentEncodingWithAllowedCharacters:charSet];
 }
 
 - (NSString *)cropFromPath:(NSString *)path
                   cropSize:(CGSize)size {
-    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width,size.height];
+    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
     NSString *pathStr = [[path stringByDeletingPathExtension] stringByAppendingString:sizeStr];
     NSString *extensionStr = [path pathExtension];
     return extensionStr ? [pathStr stringByAppendingPathExtension:extensionStr] : pathStr;
+}
+
+- (UIImage *)imageByResizeToSize:(CGSize)size
+                       withImage:(UIImage *)image {
+    CGFloat scale = 2;//[UIScreen mainScreen].scale;
+    CGSize resize = CGSizeMake(size.width * scale, size.height * scale);
+    UIImage *resizeImage = [image em_imageByResizeToSize:resize
+                                             contentMode:UIViewContentModeScaleAspectFill];
+    return resizeImage;
 }
 
 @end
