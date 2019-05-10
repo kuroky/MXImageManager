@@ -1,22 +1,16 @@
 PODS:
-  - Masonry (1.1.0)
-  - SDWebImage (4.2.2):
-    - SDWebImage/Core (= 4.2.2)
-  - SDWebImage/Core (4.2.2)
+  - MXImageManager (1.0.0)
 
 DEPENDENCIES:
-  - Masonry (= 1.1.0)
-  - SDWebImage (= 4.2.2)
+  - MXImageManager (from `../`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Masonry
-    - SDWebImage
+EXTERNAL SOURCES:
+  MXImageManager:
+    :path: "../"
 
 SPEC CHECKSUMS:
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  MXImageManager: 8a1848555086ee5c1e65f0a8153c3ed21157e312
 
-PODFILE CHECKSUM: e334879f0663ecf9bbbc3ce5ce7d274ec96481c9
+PODFILE CHECKSUM: 38f62c6767fb8c081fac320f9ebcc8e0d5997520
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.6.1

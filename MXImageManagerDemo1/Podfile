@@ -1,11 +1,14 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+ platform :ios, '10.0'
 
-target 'MXImageManagerDemo' do
+ inhibit_all_warnings!
+
+target 'MXImageManager' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for MXImageManagerDemo
+  # Pods for MXImageManager
+  pod 'Masonry', '1.1.0'
+  pod 'SDWebImage', '4.2.2'
   pod 'MXImageManager', :path => '../'
-  
 end
