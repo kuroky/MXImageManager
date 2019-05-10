@@ -14,6 +14,8 @@
 		5B7B7D5222858E2D00214D77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B7B7D5122858E2D00214D77 /* Assets.xcassets */; };
 		5B7B7D5522858E2D00214D77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B7B7D5322858E2D00214D77 /* LaunchScreen.storyboard */; };
 		5B7B7D5822858E2D00214D77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B7D5722858E2D00214D77 /* main.m */; };
+		5B7B7D602285900800214D77 /* DemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B7D5F2285900800214D77 /* DemoTableViewCell.m */; };
+		5B7B7D632285905000214D77 /* Demo1TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B7D622285905000214D77 /* Demo1TableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,10 @@
 		5B7B7D5422858E2D00214D77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B7B7D5622858E2D00214D77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B7B7D5722858E2D00214D77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5B7B7D5E2285900800214D77 /* DemoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoTableViewCell.h; sourceTree = "<group>"; };
+		5B7B7D5F2285900800214D77 /* DemoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewCell.m; sourceTree = "<group>"; };
+		5B7B7D612285905000214D77 /* Demo1TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demo1TableViewController.h; sourceTree = "<group>"; };
+		5B7B7D622285905000214D77 /* Demo1TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demo1TableViewController.m; sourceTree = "<group>"; };
 		CA1990F02E0E5B257EB05FF8 /* libPods-MXImageManagerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MXImageManagerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA821B5EC8998D7F37FB4322 /* Pods-MXImageManagerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageManagerDemo.debug.xcconfig"; path = "Target Support Files/Pods-MXImageManagerDemo/Pods-MXImageManagerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F97791592BD47CE7798EEC9F /* Pods-MXImageManagerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MXImageManagerDemo.release.xcconfig"; path = "Target Support Files/Pods-MXImageManagerDemo/Pods-MXImageManagerDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -67,8 +73,12 @@
 			children = (
 				5B7B7D4822858E2B00214D77 /* AppDelegate.h */,
 				5B7B7D4922858E2B00214D77 /* AppDelegate.m */,
+				5B7B7D5E2285900800214D77 /* DemoTableViewCell.h */,
+				5B7B7D5F2285900800214D77 /* DemoTableViewCell.m */,
 				5B7B7D4B22858E2B00214D77 /* ViewController.h */,
 				5B7B7D4C22858E2B00214D77 /* ViewController.m */,
+				5B7B7D612285905000214D77 /* Demo1TableViewController.h */,
+				5B7B7D622285905000214D77 /* Demo1TableViewController.m */,
 				5B7B7D4E22858E2B00214D77 /* Main.storyboard */,
 				5B7B7D5122858E2D00214D77 /* Assets.xcassets */,
 				5B7B7D5322858E2D00214D77 /* LaunchScreen.storyboard */,
@@ -193,7 +203,9 @@
 			files = (
 				5B7B7D4D22858E2B00214D77 /* ViewController.m in Sources */,
 				5B7B7D5822858E2D00214D77 /* main.m in Sources */,
+				5B7B7D602285900800214D77 /* DemoTableViewCell.m in Sources */,
 				5B7B7D4A22858E2B00214D77 /* AppDelegate.m in Sources */,
+				5B7B7D632285905000214D77 /* Demo1TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
