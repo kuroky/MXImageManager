@@ -11,12 +11,28 @@
   "authors": {
     "kuroky": "kuro2007cumt@gmail.com"
   },
-  "platforms": {
-    "ios": "10.0"
-  },
   "source": {
     "git": "https://github.com/kuroky/MXImageManager.git",
     "tag": "1.0.0"
   },
-  "source_files": "MXImageManager/MXImageManager.h"
+  "source_files": "MXImageManager/MXImageManager.h",
+  "public_header_files": "MXImageManager/MXImageManager.h",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "dependencies": {
+    "SDWebImage": [
+      "4.4.5"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Image",
+      "source_files": "MXImageManager/Image/{*.h,*.m}"
+    },
+    {
+      "name": "Cache",
+      "source_files": "MXImageManager/Cache/{*.h,*.m}"
+    }
+  ]
 }
