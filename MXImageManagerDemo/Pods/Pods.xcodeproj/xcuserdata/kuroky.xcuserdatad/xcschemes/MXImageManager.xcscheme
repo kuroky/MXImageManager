@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "89B0E5AD44DCBB4A7F41FF5F5999CA49"
+               BlueprintIdentifier = "E174C95CE9555CECB26C09C77821BBED"
                BuildableName = "libMXImageManager.a"
                BlueprintName = "MXImageManager"
                ReferencedContainer = "container:Pods.xcodeproj">

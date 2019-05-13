@@ -1,1 +1,1 @@
-../../../../../MXImageManager/Cache/MXImageCache.h
+../../../../../MXImageManager/MXImageCache.h

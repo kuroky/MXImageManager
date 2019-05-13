@@ -1,1 +1,1 @@
-../../../../../MXImageManager/Image/UIImage+MXAdd.h
+../../../../../MXImageManager/UIImage+MXAdd.h

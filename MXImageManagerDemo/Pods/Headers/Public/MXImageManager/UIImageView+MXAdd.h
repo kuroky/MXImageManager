@@ -1,1 +1,1 @@
-../../../../../MXImageManager/Image/UIImageView+MXAdd.h
+../../../../../MXImageManager/UIImageView+MXAdd.h
