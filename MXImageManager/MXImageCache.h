@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param block block
  */
-//- (void)mx_clearYYImageCache:(nullable void (^)(void))block;
++ (void)mx_clearYYImageCache:(nullable void (^)(void))block;
 
 @end
 
