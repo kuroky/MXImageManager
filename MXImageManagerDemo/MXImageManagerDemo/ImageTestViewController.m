@@ -73,7 +73,8 @@
     
     NSLog(@"start download from server...");
     UIImageView *imageView = [self.view viewWithTag:100];
-    [imageView mx_setImageUrl:self.origralUrl fittedSize:CGSizeMake(self.width, self.height)
+    [imageView mx_setImageUrl:self.origralUrl
+                   fittedSize:CGSizeZero
                   placeholder:nil
                    completion:^(UIImage * _Nonnull image) {
                        NSLog(@"finish download...");

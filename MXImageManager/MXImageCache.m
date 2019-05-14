@@ -101,6 +101,9 @@
 }
 
 + (NSString *)mx_cacheFromUrl:(NSString *)url forSize:(CGSize)size {
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        return url;
+    }
     NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
     NSString *pathStr = [[url stringByDeletingPathExtension] stringByAppendingString:sizeStr];
     NSString *extensionStr = [url pathExtension];

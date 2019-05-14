@@ -38,6 +38,7 @@
     // 1. 图片地址格式化
     urlStr = [self stringByURLEncode:urlStr];
     // 2. 优先读取磁盘缓存
+    
     NSString *cacheUrl = [MXImageCache mx_cacheFromUrl:urlStr forSize:size];
     UIImage *cacheImg = [MXImageCache  mx_getImageForKey:cacheUrl];
     if (cacheImg) {
@@ -128,6 +129,9 @@
 
 - (UIImage *)imageByResizeToSize:(CGSize)size
                        withImage:(UIImage *)image {
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        size = CGSizeMake(image.size.width, image.size.height);
+    }
     // SDWebImage在缓存的时候自动处理了scale
     CGFloat scale = 1;//[UIScreen mainScreen].scale;
     CGSize resize = CGSizeMake(size.width * scale, size.height * scale);
