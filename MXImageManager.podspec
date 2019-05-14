@@ -17,7 +17,7 @@ Pod::Spec.new do |spec|
 
   spec.name         = "MXImageManager"
   spec.version      = "1.0.0"
-  spec.summary      = "基于SDWebImage、YYImage的图片管理"
+  spec.summary      = "基于SDWebImage、YYWebImage的图片管理"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-图片，下载，缓存，裁剪
+对SDWebImage、YYWebImage的封装，实现图片的下载，缓存
                    DESC
 
   spec.homepage     = "https://github.com/kuroky/MXImageManager"
