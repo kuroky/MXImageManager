@@ -43,7 +43,7 @@
 //MARK:- 将图片缓存到内存
 + (void)mx_saveImageToMemory:(UIImage *)image
                 withImageKey:(NSString *)key {
-    // 不关心成功失败
+    // 不考虑成功失败
     [[SDWebImageManager sharedManager].imageCache storeImage:image
                                                       forKey:key
                                                       toDisk:YES
@@ -77,7 +77,7 @@
 }
 
 //MARK:- 清理 WebImageManager图片缓存
-+ (void)mx_clearCacheCompletion:(nullable void (^)(BOOL error))completion {
++ (void)mx_clearCacheCompletion:(nullable void (^)(void))completion {
     dispatch_group_t serviceGroup = dispatch_group_create();
     dispatch_group_enter(serviceGroup);
     [self mx_clearYYImageCache:^{
@@ -90,7 +90,7 @@
     }];
     
     dispatch_group_notify(serviceGroup, dispatch_get_main_queue(), ^{
-        completion ? completion(NO) : nil;
+        completion ? completion() : nil;
     });
 }
 
@@ -98,6 +98,13 @@
     [[YYImageCache sharedCache].diskCache removeAllObjectsWithBlock:^{
         block ? block() : nil;
     }];
+}
+
++ (NSString *)mx_cacheFromUrl:(NSString *)url forSize:(CGSize)size {
+    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
+    NSString *pathStr = [[url stringByDeletingPathExtension] stringByAppendingString:sizeStr];
+    NSString *extensionStr = [url pathExtension];
+    return extensionStr ? [pathStr stringByAppendingPathExtension:extensionStr] : pathStr;
 }
 
 @end

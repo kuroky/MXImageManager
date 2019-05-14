@@ -1,8 +1,8 @@
 {
   "name": "MXImageManager",
   "version": "1.0.0",
-  "summary": "基于SDWebImage的图片管理",
-  "description": "基于SDWebImage的图片管理，下载，缓存，裁剪，加载显示",
+  "summary": "基于SDWebImage、YYImage的图片管理",
+  "description": "图片，下载，缓存，裁剪",
   "homepage": "https://github.com/kuroky/MXImageManager",
   "license": {
     "type": "MIT",

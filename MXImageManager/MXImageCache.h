@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  清理 WebImageManager图片缓存
  */
-+ (void)mx_clearCacheCompletion:(nullable void (^)(BOOL error))completion;
++ (void)mx_clearCacheCompletion:(nullable void (^)(void))completion;
 
 /**
  获取WebImageManager缓存大小
@@ -77,6 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
  @param block block
  */
 + (void)mx_clearYYImageCache:(nullable void (^)(void))block;
+
+/**
+ 根据url和size生成缓存key
+ 
+ @param url 图片源地址
+ @param size 需要裁剪的size
+ @return 缓存string key
+ */
++ (NSString *)mx_cacheFromUrl:(NSString *)url
+                      forSize:(CGSize)size;
 
 @end
 

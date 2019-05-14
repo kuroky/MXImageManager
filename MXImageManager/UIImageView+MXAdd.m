@@ -35,14 +35,17 @@
         return;
     }
     
+    // 1. 图片地址格式化
     urlStr = [self stringByURLEncode:urlStr];
-    NSString *cacheUrl = [self cropFromPath:urlStr cropSize:size];
+    // 2. 优先读取磁盘缓存
+    NSString *cacheUrl = [MXImageCache mx_cacheFromUrl:urlStr forSize:size];
     UIImage *cacheImg = [MXImageCache  mx_getImageForKey:cacheUrl];
     if (cacheImg) {
         self.image = cacheImg;
         return;
     }
     
+    // 3. 缓存不存在，进行下载
     __weak __typeof(self)wself = self;
     [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
             placeholderImage:[UIImage imageNamed:holder]
@@ -53,12 +56,15 @@
                        }
                        
                        if (image) {
+                           // 4. 图片裁剪后加载
                            UIImage *img = [self imageByResizeToSize:size withImage:image];
                            wself.image = img;
                            [wself setNeedsLayout];
+                           // 5. 移除原始图片的磁盘缓存
                            [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
                                                                                   fromDisk:YES
                                                                             withCompletion:nil];
+                           // 6. 把裁剪后的图片存入磁盘
                            [MXImageCache  mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
                    }];
@@ -66,6 +72,7 @@
 
 //MARK:- 直接加载url图片(带block)
 - (void)mx_setImageUrl:(NSString *)urlStr
+            fittedSize:(CGSize)size
            placeholder:(nullable NSString *)holder
             completion:(nullable void (^)(UIImage *image))completion {
     if (!urlStr.length || !urlStr) {
@@ -74,7 +81,8 @@
     }
     
     urlStr = [self stringByURLEncode:urlStr];
-    UIImage *cacheImg = [MXImageCache mx_getImageForKey:urlStr];
+    NSString *cacheUrl = [MXImageCache mx_cacheFromUrl:urlStr forSize:size];
+    UIImage *cacheImg = [MXImageCache mx_getImageForKey:cacheUrl];
     if (cacheImg) {
         self.image = cacheImg;
         completion ? completion(cacheImg) : nil;
@@ -92,18 +100,20 @@
                        }
                        
                        if (image) {
-                           wself.image = image;
+                           UIImage *img = [self imageByResizeToSize:size withImage:image];
+                           wself.image = img;
                            [wself setNeedsLayout];
+                           
                            [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
                                                                                   fromDisk:YES
                                                                             withCompletion:nil];
-                           [MXImageCache mx_saveImageToDisk:image withImageKey:urlStr completion:nil];
+                           [MXImageCache mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
                        completion ? completion(image) : nil;
                    }];
 }
 
-
+//MARK:- 通过sd加载图片
 - (void)setImageURL:(NSURL *)url
         placeholder:(UIImage *)placeholder {
     [self sd_setImageWithURL:url
@@ -114,15 +124,7 @@
 - (NSString *)stringByURLEncode:(NSString *)str {
     NSCharacterSet *charSet = [NSCharacterSet URLFragmentAllowedCharacterSet];
     return [str stringByAddingPercentEncodingWithAllowedCharacters:charSet];
-}
-
-- (NSString *)cropFromPath:(NSString *)path
-                  cropSize:(CGSize)size {
-    NSString *sizeStr = [NSString stringWithFormat:@"_%.0f_%.0f",size.width, size.height];
-    NSString *pathStr = [[path stringByDeletingPathExtension] stringByAppendingString:sizeStr];
-    NSString *extensionStr = [path pathExtension];
-    return extensionStr ? [pathStr stringByAppendingPathExtension:extensionStr] : pathStr;
-}
+} 
 
 - (UIImage *)imageByResizeToSize:(CGSize)size
                        withImage:(UIImage *)image {
@@ -133,7 +135,5 @@
                                              contentMode:UIViewContentModeScaleAspectFill];
     return resizeImage;
 }
-
-
 
 @end

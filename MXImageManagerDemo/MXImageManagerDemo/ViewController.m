@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "Demo1TableViewController.h"
 #import <MXImageManager/UIImageView+MXAdd.h>
 #import <MXImageManager/MXImageCache.h>
 #import "ImageListViewController.h"
@@ -25,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataList = @[@"images", @"cache size", @"remove", @"clearCache", @"compress"];
+    self.dataList = @[@"images", @"cache cost", @"clearCache", @"read from cache"];
     UITableView *tbl = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];\
     tbl.rowHeight = 50;
     tbl.dataSource = self;
@@ -52,23 +51,32 @@
     if ([index isEqualToString:@"images"]) {
         [self.navigationController pushViewController:[ImageListViewController new] animated:YES];
     }
-    else if ([index isEqualToString:@"cache size"]) {
+    else if ([index isEqualToString:@"cache cost"]) {
         [MXImageCache mx_getCacheSize:^(CGFloat totalCost) {
-            NSLog(@"size: %.2fM", totalCost);
+            NSString *title = [NSString stringWithFormat:@"size: %.1fM", totalCost];
+            [self showAlert:title];
         }];
     }
-    else if ([index isEqualToString:@"remove"]) {
-        [MXImageCache mx_removeDiskImageForKey:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg"];
-    }
     else if ([index isEqualToString:@"clearCache"]) {
-        [MXImageCache mx_clearCacheCompletion:nil];
+        [MXImageCache mx_clearCacheCompletion:^() {
+            [MXImageCache mx_getCacheSize:^(CGFloat totalCost) {
+                NSString *title = [NSString stringWithFormat:@"after clear size: %.1fM", totalCost];
+                [self showAlert:title];
+            }];
+        }];
     }
-    else if ([index isEqualToString:@"compress"]) {
+    else if ([index isEqualToString:@"read from cache"]) {
         [self.navigationController pushViewController:[ImageTestViewController new] animated:YES];
     }
+}
     
-    //Demo1TableViewController *demoVC = [Demo1TableViewController new];
-    //[self.navigationController pushViewController:demoVC animated:YES];
+- (void)showAlert:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"message"
+                                                                   message:title
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:action];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

@@ -38,10 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
  UIImageView 直接加载url图片(带block)
  
  @param urlStr 图片地址(NSString)
+ @param size   ImageView显示size
  @param holder 占位图name
  @param completion 图片下载完成回调
  */
 - (void)mx_setImageUrl:(NSString *)urlStr
+            fittedSize:(CGSize)size
            placeholder:(nullable NSString *)holder
             completion:(nullable void (^)(UIImage *image))completion;
 

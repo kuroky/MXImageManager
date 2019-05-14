@@ -7,10 +7,11 @@
 //
 
 #import "ImageListViewController.h"
-#import <Masonry.h>
 #import <MXImageManager/UIImageView+MXAdd.h>
 
 static NSString *const kCellId  =   @"cellid";
+static NSInteger const kLeading =   10;
+static NSInteger const kImageHeight =   350;
 
 @interface ImageListViewController ()
 
@@ -25,25 +26,22 @@ static NSString *const kCellId  =   @"cellid";
     
     self.navigationItem.title = @"Images";
     self.dataList = [NSMutableArray array];
-    NSInteger index = 40;
-    /*
-    for (NSInteger i = 0; i < index; i++) {
-        NSString *url = [NSString stringWithFormat:@"http://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage0%02ld.jpg", (long)i];
-        [self.dataList addObject:url];
-    }
-    */
     
-    [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg"];
-    [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmm9ld5j20sg0sgwig.jpg"];
-    [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmmnxloj20sg0sgq6c.jpg"];
-    [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmn254kj20sg0sgn0n.jpg"];
-    [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6gy1g2ze3q9lwvg20f0073npe.gif"];
-    [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmnjbphj20sg0sgwhh.jpg"];
-    [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmnvuuhj20sg0sgn01.jpg"];
-    [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdml6xg5j20sg0sgdip.jpg"];
-    [self.dataList addObject:@"https://wx2.sinaimg.cn/large/a7d296e6ly1g2zdpjh3iqj20sg0sgwh4.jpg"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg"];
+        [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmm9ld5j20sg0sgwig.jpg"];
+        [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmmnxloj20sg0sgq6c.jpg"];
+        [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmn254kj20sg0sgn0n.jpg"];
+        [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6gy1g2ze3q9lwvg20f0073npe.gif"];
+        [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmnjbphj20sg0sgwhh.jpg"];
+        [self.dataList addObject:@"https://wx1.sinaimg.cn/large/a7d296e6ly1g2zdmnvuuhj20sg0sgn01.jpg"];
+        [self.dataList addObject:@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdml6xg5j20sg0sgdip.jpg"];
+        [self.dataList addObject:@"https://wx2.sinaimg.cn/large/a7d296e6ly1g2zdpjh3iqj20sg0sgwh4.jpg"];
+        [self.tableView reloadData];
+    });
+    
     [self.tableView registerClass:[TestTableCell class] forCellReuseIdentifier:kCellId];
-    self.tableView.rowHeight = 350;
+    self.tableView.rowHeight = kImageHeight;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,25 +86,18 @@ static NSString *const kCellId  =   @"cellid";
 }
 
 - (void)setup {
-    UIImageView *cimageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.imgWidth = [UIScreen mainScreen].bounds.size.width - kLeading - kLeading;
+    self.imgHeight = kImageHeight - kLeading - kLeading;
+    
+    UIImageView *cimageView = [[UIImageView alloc] initWithFrame:CGRectMake(kLeading, kLeading, self.imgWidth, self.imgHeight)];
     [self.contentView addSubview:cimageView];
     cimageView.backgroundColor = [UIColor lightGrayColor];
-    [cimageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.insets = UIEdgeInsetsMake(10, 10, 10, 10);
-    }];
     self.cellImageView = cimageView;
-    self.imgWidth = [UIScreen mainScreen].bounds.size.width - 20;
-    self.imgHeight = 350 - 20;
 }
 
 - (void)setCellImage:(NSString *)imgUrl {
     [self.cellImageView mx_setImageUrl:imgUrl fittedSize:CGSizeMake(self.imgWidth, self.imgHeight) palceholder:nil];
-}
-
-- (void)dealloc {
-    
-    
-    
 }
 
 @end

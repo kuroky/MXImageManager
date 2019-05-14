@@ -1,5 +1,4 @@
 PODS:
-  - Masonry (1.1.0)
   - MXImageManager (1.0.0):
     - SDWebImage (= 4.4.5)
     - YYWebImage (= 1.0.5)
@@ -15,12 +14,10 @@ PODS:
     - YYImage
 
 DEPENDENCIES:
-  - Masonry (= 1.1.0)
   - MXImageManager (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Masonry
     - SDWebImage
     - YYCache
     - YYImage
@@ -31,13 +28,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MXImageManager: e4c573784471137b443c19bb06dfdce41ef48d2d
+  MXImageManager: 53166e34a54e38378306a515a9349688293229eb
   SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 3e213252e2ae36bac5978872e31f9ea7d2b4ba8a
+PODFILE CHECKSUM: 950ebd7f6bc0696ec6e7ba450c9e1fb968b6d617
 
 COCOAPODS: 1.6.1

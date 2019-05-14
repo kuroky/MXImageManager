@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Emucoo. All rights reserved.
 //
 
-#import "MXBaseTableViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface ImageTestViewController : MXBaseTableViewController
+@interface ImageTestViewController : UIViewController
 
 @end

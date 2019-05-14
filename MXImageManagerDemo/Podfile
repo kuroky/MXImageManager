@@ -7,7 +7,6 @@ target 'MXImageManagerDemo' do
   # use_frameworks!
 
   # Pods for MXImageManagerDemo
-  pod 'Masonry', '1.1.0'
   pod 'MXImageManager', :path => '../'
   
 end

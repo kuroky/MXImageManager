@@ -7,17 +7,15 @@
 //
 
 #import "ImageTestViewController.h"
-#import "UIImage+EMCompress.h"
-#import "ImageTestFooter.h"
-#import "UIImage+EMAdd.h"
 #import <MXImageManager/MXImageCache.h>
-
-
-static NSString *const kImageCellId =   @"imageTblCellId";
+#import <MXImageManager/UIImageView+MXAdd.h>
 
 @interface ImageTestViewController ()
 
-@property (nonatomic, strong) ImageTestFooter *footerView;
+@property (nonatomic, copy) NSString *origralUrl;
+@property (nonatomic, copy) NSString *cacheKey;
+@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) CGFloat height;
 
 @end
 
@@ -25,80 +23,67 @@ static NSString *const kImageCellId =   @"imageTblCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupData];
     [self setupUI];
-}
-
-- (void)setupData {
-    self.dataList = [NSMutableArray array];
-    [self.dataList addObjectsFromArray:@[@"图片压缩", @"图片圆角", @"颜色->图片", @"图片截取"]];
 }
 
 - (void)setupUI {
     self.navigationItem.title = @"图片测试";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setupTableView];
     
-    __weak __typeof(self)wself = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [wself.tableView reloadData];
-        [wself mx_reloadData:^(UITableViewCell *cell, NSString *item) {
-            cell.textLabel.text = item;
-        }];
-    });
+    self.width = [UIScreen mainScreen].bounds.size.width - 10 - 10;
+    self.height = 350 - 10 - 10;
+    
+    self.origralUrl = @"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg";
+    self.cacheKey = [MXImageCache mx_cacheFromUrl:self.origralUrl forSize:CGSizeMake(self.width, self.height)];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.width, self.height)];
+    [self.view addSubview:imageView];
+    imageView.backgroundColor = [UIColor lightTextColor];
+    imageView.tag = 100;
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(30, CGRectGetMaxY(imageView.frame) + 40, 100, 40);
+    [btn setTitle:@"Clear" forState:UIControlStateNormal];
+    [self.view addSubview:btn];
+    [btn setBackgroundColor:[UIColor lightGrayColor]];
+    [btn addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame = CGRectMake(CGRectGetMaxX(btn.frame) + 40, CGRectGetMaxY(imageView.frame) + 40, 100, 40);
+    [btn1 setTitle:@"Down" forState:UIControlStateNormal];
+    [self.view addSubview:btn1];
+    [btn1 setBackgroundColor:[UIColor lightGrayColor]];
+    [btn1 addTarget:self action:@selector(down) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)setupTableView {
-    self.rowHeight = 49.0;
-    self.cellIdentifier = kImageCellId;
-    self.hideHeaderRefresh = YES;
-    self.hideFooterRefresh = YES;
-    [self.tableView registerClass:[UITableViewCell class]
-           forCellReuseIdentifier:kImageCellId];
-    
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    self.footerView = [[[NSBundle mainBundle] loadNibNamed:@"ImageTestFooter" owner:self options:nil] lastObject];
-    self.footerView.frame = CGRectMake(0, 0, screenWidth, 400);
-    self.tableView.tableFooterView = self.footerView;
+- (void)clear {
+    NSLog(@"clear cache for key: %@", self.cacheKey);
+    [MXImageCache mx_removeDiskImageForKey:self.cacheKey];
+    UIImage *image = [MXImageCache mx_getImageForKey:self.cacheKey];
+    if (!image) {
+        NSLog(@"clear success");
+    }
 }
 
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSString *title = self.dataList[indexPath.row];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"2014120107280906" ofType:@"jpg"];
-    if ([title isEqualToString:@"图片压缩"]) {
-        __block UIImage *img = nil;
-        UIImage *originalImg = [UIImage imageWithContentsOfFile:path];
-        [originalImg em_compressQuality:EMImageQualityNomal
-                             completion:^(UIImage *pressImg) {
-                                 img = pressImg;
-                                 [self.footerView em_reloadImage:img];
-                             }];
+- (void)down {
+    UIImage *image = [MXImageCache mx_getImageForKey:self.cacheKey];
+    if (!image) {
+        NSLog(@"no image found from disk cache");
     }
-    else if ([title isEqualToString:@"图片圆角"]) {
-        __block UIImage *img = nil;
-        UIImage *originalImg = [UIImage imageWithContentsOfFile:path];
-        [originalImg em_compressQuality:EMImageQualityNomal
-                             completion:^(UIImage *pressImg) {
-                                 img = [pressImg em_imageByRoundRadius:100.0];
-                                 [self.footerView em_reloadImage:img];
-                             }];
-    }
-    else if ([title isEqualToString:@"颜色->图片"]) {
-        UIImage *img = nil;
-        UIColor *color = [UIColor redColor];
-        img = [UIImage em_imageWithColor:color];
-        [self.footerView em_reloadImage:img];
-    }
-    else if ([title isEqualToString:@"图片截取"]) {
-        __block UIImage *img = nil;
-        UIImage *originalImg = [UIImage imageWithContentsOfFile:path];
-        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-        img = [originalImg em_imageByResizeToSize:CGSizeMake(screenWidth, 400)
-                                      contentMode:UIViewContentModeScaleAspectFit];
-        [self.footerView em_reloadImage:img];
-    }
+    
+    NSLog(@"start download from server...");
+    UIImageView *imageView = [self.view viewWithTag:100];
+    [imageView mx_setImageUrl:self.origralUrl fittedSize:CGSizeMake(self.width, self.height)
+                  placeholder:nil
+                   completion:^(UIImage * _Nonnull image) {
+                       NSLog(@"finish download...");
+                       
+                       UIImage *origralImage = [MXImageCache mx_getImageForKey:self.origralUrl];
+                       if (!origralImage) {
+                           NSLog(@"has clear origralImage from disk");
+                       }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
