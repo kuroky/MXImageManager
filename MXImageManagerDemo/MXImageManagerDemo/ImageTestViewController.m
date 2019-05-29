@@ -38,7 +38,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.width, self.height)];
     [self.view addSubview:imageView];
-    imageView.backgroundColor = [UIColor lightTextColor];
+    imageView.backgroundColor = [UIColor lightGrayColor];
     imageView.tag = 100;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -74,7 +74,7 @@
     NSLog(@"start download from server...");
     UIImageView *imageView = [self.view viewWithTag:100];
     [imageView mx_setImageUrl:self.origralUrl
-                   fittedSize:CGSizeZero
+                   fittedSize:CGSizeMake(self.width, self.height)
                   placeholder:nil
                    completion:^(UIImage * _Nonnull image) {
                        NSLog(@"finish download...");
