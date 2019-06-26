@@ -8,6 +8,7 @@
 
 #import "ImageListViewController.h"
 #import <MXImageManager/UIImageView+MXAdd.h>
+#import <MXImageManager/MXImageCache.h>
 
 static NSString *const kCellId  =   @"cellid";
 static NSInteger const kLeading =   10;
@@ -92,7 +93,6 @@ static NSInteger const kImageHeight =   350;
     
     UIImageView *cimageView = [[UIImageView alloc] initWithFrame:CGRectMake(kLeading, kLeading, self.imgWidth, self.imgHeight)];
     [self.contentView addSubview:cimageView];
-    cimageView.backgroundColor = [UIColor lightGrayColor];
     self.cellImageView = cimageView;
 }
 

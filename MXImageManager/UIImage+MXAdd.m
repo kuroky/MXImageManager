@@ -12,11 +12,12 @@
 - (UIImage *)mx_imageByResizeToSize:(CGSize)size
                         contentMode:(UIViewContentMode)contentMode {
     if (size.width <= 0 || size.height <= 0) return nil;
-    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1);
     [self mx_drawInRect:CGRectMake(0, 0, size.width, size.height)
         withContentMode:contentMode clipsToBounds:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    NSData *data = UIImagePNGRepresentation(image);
     return image;
 }
 

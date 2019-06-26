@@ -1,10 +1,10 @@
 PODS:
-  - MXImageManager (1.0.0):
-    - SDWebImage (= 4.4.5)
+  - MXImageManager (1.2.0):
+    - SDWebImage (= 5.0.6)
     - YYWebImage (= 1.0.5)
-  - SDWebImage (4.4.5):
-    - SDWebImage/Core (= 4.4.5)
-  - SDWebImage/Core (4.4.5)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
   - YYCache (1.0.4)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
@@ -28,12 +28,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MXImageManager: 53166e34a54e38378306a515a9349688293229eb
-  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
+  MXImageManager: fcf19393373665ef5fece147de91e135af57064a
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
 PODFILE CHECKSUM: 950ebd7f6bc0696ec6e7ba450c9e1fb968b6d617
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.2

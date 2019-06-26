@@ -6,14 +6,29 @@
 //
 
 #import "MXImageCache.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+
+#if __has_include(<YYWebImage/YYImageCache.h>)
 #import <YYWebImage/YYImageCache.h>
+#else
+#import "YYWebImage/YYImageCache.h"
+#endif
+
+#if __has_include(<YYCache/YYCache.h>)
 #import <YYCache/YYCache.h>
+#else
+#import "YYCache/YYCache.h"
+#endif
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDImageCache.h>
+#else
+#import "SDWebImage/SDImageCache.h"
+#endif
 
 @implementation MXImageCache
 
 + (void)mx_cancelSDMemoryCache {
-    [SDWebImageManager sharedManager].imageCache.config.shouldCacheImagesInMemory = NO;
+    [SDImageCache sharedImageCache].config.shouldCacheImagesInMemory = NO;
 }
 
 //MARK:- 将图片缓存到磁盘
@@ -25,18 +40,19 @@
         return;
     }
     
-    // SD的操作也可能失败，默认成功
-    [[SDWebImageManager sharedManager].imageCache storeImage:image
-                                                      forKey:key
-                                                      toDisk:YES
-                                                  completion:^{
-                                                      completion ? completion(YES) : nil;
-                                                  }];
+    // 操作完成
+    [[SDImageCache sharedImageCache] storeImage:image
+                                      imageData:nil
+                                         forKey:key
+                                      cacheType:SDImageCacheTypeDisk
+                                     completion:^{
+                                         completion ? completion(YES) : nil;
+                                     }];
 }
 
 //MARK:- 移除磁盘缓存图片
 + (void)mx_removeDiskImageForKey:(NSString *)key {
-    [[SDWebImageManager sharedManager].imageCache removeImageForKey:key fromDisk:YES withCompletion:nil];
+    [[SDImageCache sharedImageCache] removeImageForKey:key cacheType:SDImageCacheTypeAll completion:nil];
     [[YYImageCache sharedCache] removeImageForKey:key withType:YYImageCacheTypeDisk];
 }
 
@@ -44,15 +60,15 @@
 + (void)mx_saveImageToMemory:(UIImage *)image
                 withImageKey:(NSString *)key {
     // 不考虑成功失败
-    [[SDWebImageManager sharedManager].imageCache storeImage:image
-                                                      forKey:key
-                                                      toDisk:YES
-                                                  completion:nil];
+    [[SDImageCache sharedImageCache] storeImage:image
+                                      imageData:nil
+                                         forKey:key
+                                      cacheType:SDImageCacheTypeMemory completion:nil];
 }
 
 //MARK:- 移除内存缓存图片
 + (void)mx_removeMemoryImageForKey:(NSString *)key {
-    [[SDWebImageManager sharedManager].imageCache removeImageForKey:key fromDisk:NO withCompletion:nil];
+    [[SDImageCache sharedImageCache] removeImageForKey:key cacheType:SDImageCacheTypeAll completion:nil];
     [[YYImageCache sharedCache] removeImageForKey:key withType:YYImageCacheTypeMemory];
 }
 
@@ -61,17 +77,21 @@
     if (!key || !key.length) {
         return nil;
     }
-    
-    return [[SDWebImageManager sharedManager].imageCache imageFromCacheForKey:key];
+
+    return [[SDImageCache sharedImageCache] imageFromCacheForKey:key];
 }
 
 //MARK:- 获取WebImageManager缓存大小
 + (void)mx_getCacheSize:(nullable void (^)(CGFloat totalCost))completion {
-    CGFloat size = [SDWebImageManager sharedManager].imageCache.getSize / 1024.0 / 1024.0; // sd
-
+    if (!completion) {
+        return;
+    }
+    
+    CGFloat size = [SDImageCache sharedImageCache].totalDiskSize / 1024.0 / 1024.0; // sd
+    
     [[YYImageCache sharedCache].diskCache totalCostWithBlock:^(NSInteger totalCost) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion ? completion(size + totalCost / 1000.0 / 1000.0) : nil; // yy
+            completion(size + totalCost / 1000.0 / 1000.0);// yy
         });
     }];
 }
@@ -85,7 +105,7 @@
     }];
     
     dispatch_group_enter(serviceGroup);
-    [[SDWebImageManager sharedManager].imageCache clearDiskOnCompletion:^{
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         dispatch_group_leave(serviceGroup);
     }];
     

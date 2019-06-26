@@ -8,7 +8,14 @@
 #import "UIImageView+MXAdd.h"
 #import "MXImageCache.h"
 #import "UIImage+MXAdd.h"
+
+#if __has_include(<SDWebImage/UIImageView+WebCache.h>)
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDImageCache.h>
+#else
+#import "UIImageView+WebCache.h"
+#import "SDWebImage/SDImageCache.h"
+#endif
 
 @implementation UIImageView (MXAdd)
 
@@ -63,8 +70,8 @@
                            [wself setNeedsLayout];
                            // 5. 移除原始图片的磁盘缓存
                            [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
-                                                                                  fromDisk:YES
-                                                                            withCompletion:nil];
+                                                                                 cacheType:SDImageCacheTypeAll
+                                                                                completion:nil];
                            // 6. 把裁剪后的图片存入磁盘
                            [MXImageCache  mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
@@ -106,8 +113,8 @@
                            [wself setNeedsLayout];
                            
                            [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
-                                                                                  fromDisk:YES
-                                                                            withCompletion:nil];
+                                                                                 cacheType:SDImageCacheTypeAll
+                                                                                completion:nil];
                            [MXImageCache mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
                        completion ? completion(image) : nil;
@@ -132,8 +139,9 @@
     if (CGSizeEqualToSize(size, CGSizeZero)) {
         size = CGSizeMake(image.size.width, image.size.height);
     }
-    // SDWebImage在缓存的时候自动处理了scale
-    CGFloat scale = 1;//[UIScreen mainScreen].scale;
+
+    CGFloat scale = [UIScreen mainScreen].scale;
+    scale = scale > 2 ? 2 : scale;
     CGSize resize = CGSizeMake(size.width * scale, size.height * scale);
     UIImage *resizeImage = [image mx_imageByResizeToSize:resize
                                              contentMode:UIViewContentModeScaleAspectFill];
