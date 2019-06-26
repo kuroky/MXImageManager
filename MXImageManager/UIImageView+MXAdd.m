@@ -69,9 +69,9 @@
                            wself.image = img;
                            [wself setNeedsLayout];
                            // 5. 移除原始图片的磁盘缓存
-                           [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
-                                                                                 cacheType:SDImageCacheTypeAll
-                                                                                completion:nil];
+                           [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString
+                                                                    cacheType:SDImageCacheTypeAll
+                                                                   completion:nil];
                            // 6. 把裁剪后的图片存入磁盘
                            [MXImageCache  mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
@@ -112,9 +112,9 @@
                            wself.image = img;
                            [wself setNeedsLayout];
                            
-                           [[SDWebImageManager sharedManager].imageCache removeImageForKey:imageURL.absoluteString
-                                                                                 cacheType:SDImageCacheTypeAll
-                                                                                completion:nil];
+                           [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString
+                                                                    cacheType:SDImageCacheTypeAll
+                                                                   completion:nil];
                            [MXImageCache mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
                        }
                        completion ? completion(image) : nil;

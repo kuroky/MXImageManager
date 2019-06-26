@@ -72,13 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mx_getCacheSize:(nullable void (^)(CGFloat totalCost))completion;
 
 /**
- 清除YYImageCahce (YYCahce缓存的是解码后的图片 占用大量磁盘空间)
- 
- @param block block
- */
-+ (void)mx_clearYYImageCache:(nullable void (^)(void))block;
-
-/**
  根据url和size生成缓存key
  
  @param url 图片源地址

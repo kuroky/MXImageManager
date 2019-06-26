@@ -7,18 +7,6 @@
 
 #import "MXImageCache.h"
 
-#if __has_include(<YYWebImage/YYImageCache.h>)
-#import <YYWebImage/YYImageCache.h>
-#else
-#import "YYWebImage/YYImageCache.h"
-#endif
-
-#if __has_include(<YYCache/YYCache.h>)
-#import <YYCache/YYCache.h>
-#else
-#import "YYCache/YYCache.h"
-#endif
-
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDImageCache.h>
 #else
@@ -53,7 +41,6 @@
 //MARK:- 移除磁盘缓存图片
 + (void)mx_removeDiskImageForKey:(NSString *)key {
     [[SDImageCache sharedImageCache] removeImageForKey:key cacheType:SDImageCacheTypeAll completion:nil];
-    [[YYImageCache sharedCache] removeImageForKey:key withType:YYImageCacheTypeDisk];
 }
 
 //MARK:- 将图片缓存到内存
@@ -69,7 +56,6 @@
 //MARK:- 移除内存缓存图片
 + (void)mx_removeMemoryImageForKey:(NSString *)key {
     [[SDImageCache sharedImageCache] removeImageForKey:key cacheType:SDImageCacheTypeAll completion:nil];
-    [[YYImageCache sharedCache] removeImageForKey:key withType:YYImageCacheTypeMemory];
 }
 
 //MARK:- 根据key读取缓存的图片
@@ -87,36 +73,15 @@
         return;
     }
     
-    CGFloat size = [SDImageCache sharedImageCache].totalDiskSize / 1024.0 / 1024.0; // sd
-    
-    [[YYImageCache sharedCache].diskCache totalCostWithBlock:^(NSInteger totalCost) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(size + totalCost / 1000.0 / 1000.0);// yy
-        });
+    [[SDImageCache sharedImageCache] calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
+        completion(totalSize / 1024.0 / 1024.0);
     }];
 }
 
 //MARK:- 清理 WebImageManager图片缓存
 + (void)mx_clearCacheCompletion:(nullable void (^)(void))completion {
-    dispatch_group_t serviceGroup = dispatch_group_create();
-    dispatch_group_enter(serviceGroup);
-    [self mx_clearYYImageCache:^{
-        dispatch_group_leave(serviceGroup);
-    }];
-    
-    dispatch_group_enter(serviceGroup);
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-        dispatch_group_leave(serviceGroup);
-    }];
-    
-    dispatch_group_notify(serviceGroup, dispatch_get_main_queue(), ^{
         completion ? completion() : nil;
-    });
-}
-
-+ (void)mx_clearYYImageCache:(nullable void (^)(void))block {
-    [[YYImageCache sharedCache].diskCache removeAllObjectsWithBlock:^{
-        block ? block() : nil;
     }];
 }
 

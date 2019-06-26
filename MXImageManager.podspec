@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "MXImageManager"
-  spec.version      = "1.1.0"
+  spec.version      = "1.1.1"
   spec.summary      = "基于SDWebImage、YYWebImage的图片管理"
 
   spec.description  = <<-DESC
@@ -26,11 +26,8 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "MXImageManager/*{h,m}"
   
-  #  spec.public_header_files = "MXImageManager/*.{h}"
-  
   spec.platform     = :ios, "10.0"
   
   spec.dependency "SDWebImage", "5.0.6"
-  spec.dependency "YYWebImage", "1.0.5"
 
 end
