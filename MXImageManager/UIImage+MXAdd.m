@@ -17,7 +17,6 @@
         withContentMode:contentMode clipsToBounds:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSData *data = UIImagePNGRepresentation(image);
     return image;
 }
 
