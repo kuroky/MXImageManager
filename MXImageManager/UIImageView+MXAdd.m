@@ -23,14 +23,21 @@
 - (void)mx_setImageUrl:(NSString *)urlStr
            placeholder:(nullable NSString *)holder {
     if (!urlStr.length || !urlStr) {
-        self.image = [UIImage imageNamed:holder];
+        if (holder && holder.length) {
+            self.image = [UIImage imageNamed:holder];
+        }
         return;
+    }
+    
+    UIImage *holderImg;
+    if (holder && holder.length) {
+        holderImg = [UIImage imageNamed:holder];
     }
     
     urlStr = [self stringByURLEncode:urlStr];
     NSURL *url = [NSURL URLWithString:urlStr];
     [self setImageURL:url
-          placeholder:[UIImage imageNamed:holder]];
+          placeholder:holderImg];
 }
 
 //MARK:- UIImageView 加载裁剪后的url图片
@@ -38,7 +45,9 @@
             fittedSize:(CGSize)size
            palceholder:(nullable NSString *)holder {
     if (!urlStr.length || !urlStr) {
-        self.image = [UIImage imageNamed:holder];
+        if (holder && holder.length) {
+            self.image = [UIImage imageNamed:holder];
+        }
         return;
     }
     
@@ -53,10 +62,15 @@
         return;
     }
     
+    UIImage *holderImg;
+    if (holder && holder.length) {
+        holderImg = [UIImage imageNamed:holder];
+    }
+    
     // 3. 缓存不存在，进行下载
     __weak __typeof(self)wself = self;
     [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
-            placeholderImage:[UIImage imageNamed:holder]
+            placeholderImage:holderImg
                      options:SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageAvoidAutoSetImage
                    completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                        if (!wself || !image) {
@@ -97,9 +111,13 @@
         return;
     }
     
+    UIImage *holderImg;
+    if (holder && holder.length) {
+        holderImg = [UIImage imageNamed:holder];
+    }
     __weak __typeof(self)wself = self;
     [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
-            placeholderImage:[UIImage imageNamed:holder]
+            placeholderImage:holderImg
                      options:SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageAvoidAutoSetImage
                    completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                        if (!wself || !image) {
