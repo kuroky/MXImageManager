@@ -33,7 +33,8 @@
     self.width = [UIScreen mainScreen].bounds.size.width - 10 - 10;
     self.height = 350 - 10 - 10;
     
-    self.origralUrl = @"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg";
+    self.origralUrl = @"http://img.emucoo.net/1565937951473_厨房排水沟.jpg";
+    //@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg";
     self.cacheKey = [MXImageCache mx_cacheFromUrl:self.origralUrl forSize:CGSizeMake(self.width, self.height)];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.width, self.height)];

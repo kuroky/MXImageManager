@@ -148,7 +148,7 @@
 }
 
 - (NSString *)stringByURLEncode:(NSString *)str {
-    NSCharacterSet *charSet = [NSCharacterSet URLFragmentAllowedCharacterSet];
+    NSCharacterSet *charSet = [NSCharacterSet URLQueryAllowedCharacterSet];
     return [str stringByAddingPercentEncodingWithAllowedCharacters:charSet];
 } 
 

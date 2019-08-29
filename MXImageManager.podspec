@@ -9,7 +9,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "MXImageManager"
-  spec.version      = "1.1.2"
+  spec.version      = "1.1.3"
   spec.summary      = "基于SDWebImage、YYWebImage的图片管理"
 
   spec.description  = <<-DESC
