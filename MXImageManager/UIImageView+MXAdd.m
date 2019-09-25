@@ -51,11 +51,8 @@
         return;
     }
     
-    // 1. 图片地址格式化
-    urlStr = [self stringByURLEncode:urlStr];
-    // 2. 优先读取磁盘缓存
-    
-    NSString *cacheUrl = [MXImageCache mx_cacheFromUrl:urlStr forSize:size];
+    urlStr = [self stringByURLEncode:urlStr]; // 1. 图片地址encode
+    NSString *cacheUrl = [MXImageCache mx_cacheFromUrl:urlStr forSize:size]; // 2. 优先读取磁盘缓存
     UIImage *cacheImg = [MXImageCache  mx_getImageForKey:cacheUrl];
     if (cacheImg) {
         self.image = cacheImg;
@@ -67,29 +64,25 @@
         holderImg = [UIImage imageNamed:holder];
     }
     
-    // 3. 缓存不存在，进行下载
     __weak __typeof(self)wself = self;
-    [self sd_setImageWithURL:[NSURL URLWithString:urlStr]
+    [self sd_setImageWithURL:[NSURL URLWithString:urlStr] // 3. 缓存未命中，下载原图
             placeholderImage:holderImg
                      options:SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageAvoidAutoSetImage
                    completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                       if (!wself || !image) {
-                           return;
-                       }
-                       
-                       if (image) {
-                           // 4. 图片裁剪后加载
-                           UIImage *img = [self imageByResizeToSize:size withImage:image];
-                           wself.image = img;
-                           [wself setNeedsLayout];
-                           // 5. 移除原始图片的磁盘缓存
-                           [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString
-                                                                    cacheType:SDImageCacheTypeAll
-                                                                   completion:nil];
-                           // 6. 把裁剪后的图片存入磁盘
-                           [MXImageCache  mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil];
-                       }
-                   }];
+        if (!wself || !image) {
+            return;
+        }
+        
+        if (image) {
+            UIImage *img = [self imageByResizeToSize:size withImage:image]; // 4. 图片裁剪 显示
+            wself.image = img;
+            [wself setNeedsLayout];
+            [[SDImageCache sharedImageCache] removeImageForKey:imageURL.absoluteString // 5. 移除原始图片的磁盘缓存
+                                                     cacheType:SDImageCacheTypeAll
+                                                    completion:nil];
+            [MXImageCache  mx_saveImageToDisk:img withImageKey:cacheUrl completion:nil]; // 6. 裁剪的图片存入磁盘
+        }
+    }];
 }
 
 //MARK:- 直接加载url图片(带block)
