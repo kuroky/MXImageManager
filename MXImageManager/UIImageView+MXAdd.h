@@ -24,8 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
            placeholder:(nullable NSString *)holder;
 
 /**
- UIImageView 加载裁剪后的url图片 (图片下载完，先裁剪再移除内存缓存，保存到磁盘)
- 
+ UIImageView 加载裁剪后的图片
+  1. 优先读取缓存
+  2. 对下载原图进行裁剪
+  3. 保存裁剪后的图片
+  4. 移除原图缓存
  @param urlStr 图片地址
  @param size   ImageView显示size
  @param holder 占位图name
@@ -35,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
            palceholder:(nullable NSString *)holder;
 
 /**
- UIImageView 直接加载url图片(带block)
+ UIImageView 根据url下载图片通过blcok回调返回下载图
  
  @param urlStr 图片地址(NSString)
  @param size   ImageView显示size
