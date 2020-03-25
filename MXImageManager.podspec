@@ -28,6 +28,6 @@ Pod::Spec.new do |spec|
   
   spec.platform     = :ios, "10.0"
   
-  spec.dependency "SDWebImage", "5.0.6"
+  spec.dependency "SDWebImage", "5.6.1"
 
 end

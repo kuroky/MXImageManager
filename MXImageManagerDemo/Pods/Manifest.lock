@@ -1,15 +1,15 @@
 PODS:
-  - MXImageManager (1.1.0):
-    - SDWebImage (= 5.0.6)
-  - SDWebImage (5.0.6):
-    - SDWebImage/Core (= 5.0.6)
-  - SDWebImage/Core (5.0.6)
+  - MXImageManager (1.1.4):
+    - SDWebImage (= 5.6.1)
+  - SDWebImage (5.6.1):
+    - SDWebImage/Core (= 5.6.1)
+  - SDWebImage/Core (5.6.1)
 
 DEPENDENCIES:
   - MXImageManager (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - SDWebImage
 
 EXTERNAL SOURCES:
@@ -17,9 +17,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MXImageManager: d3f64409967bfcb8f8685360ed7dd9b4c8a2ca94
-  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  MXImageManager: 776014190c231ff54cf1a2fd387210bef97b4f82
+  SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
 
-PODFILE CHECKSUM: 950ebd7f6bc0696ec6e7ba450c9e1fb968b6d617
+PODFILE CHECKSUM: 32efefaa03c396c91ba99370e634595a83c589ac
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.9.1

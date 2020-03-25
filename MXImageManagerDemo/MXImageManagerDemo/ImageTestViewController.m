@@ -28,7 +28,7 @@
 
 - (void)setupUI {
     self.navigationItem.title = @"图片测试";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor systemTealColor];
     
     self.width = [UIScreen mainScreen].bounds.size.width - 10 - 10;
     self.height = 350 - 10 - 10;
