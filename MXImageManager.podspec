@@ -9,11 +9,11 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "MXImageManager"
-  spec.version      = "1.1.4"
+  spec.version      = "1.1.5"
   spec.summary      = "基于SDWebImage的图片管理"
 
   spec.description  = <<-DESC
-对SDWebImage、YYWebImage的封装，实现图片的下载，缓存
+对SDWebImage的封装，实现图片的下载，缓存
                    DESC
 
   spec.homepage     = "https://github.com/kuroky/MXImageManager"
