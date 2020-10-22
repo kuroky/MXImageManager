@@ -33,8 +33,9 @@
     self.width = [UIScreen mainScreen].bounds.size.width - 10 - 10;
     self.height = 350 - 10 - 10;
     
-    self.origralUrl = @"http://img.emucoo.net/1565937951473_厨房排水沟.jpg";
+    self.origralUrl = @"https://cdn-public-sit-static01.xiaoyubobo.com/salesman/cover_pic/20200810/15970539350ip2.jpeg";
     //@"https://wx4.sinaimg.cn/large/a7d296e6ly1g2zdmlrqmej20sg0sg0vh.jpg";
+    // https://cdn-public-sit-static01.xiaoyubobo.com/salesman/cover_pic/20200810/15970539350ip2.jpeg
     self.cacheKey = [MXImageCache mx_cacheFromUrl:self.origralUrl forSize:CGSizeMake(self.width, self.height)];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, self.width, self.height)];
@@ -84,8 +85,7 @@
                        if (!origralImage) {
                            NSLog(@"has clear origralImage from disk");
                        }
-    }];
-    
+    }];    
 }
 
 - (void)didReceiveMemoryWarning {

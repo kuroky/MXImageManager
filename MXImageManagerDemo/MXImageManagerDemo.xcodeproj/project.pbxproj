@@ -22,7 +22,7 @@
 /* Begin PBXFileReference section */
 		5B65BEE222893ED700D8D68F /* MXImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MXImageManager.h; path = MXImageManager/MXImageManager.h; sourceTree = "<group>"; };
 		5B65BEE322893ED700D8D68F /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		5B65BEE422893ED700D8D68F /* MXImageManager.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = MXImageManager.podspec; sourceTree = "<group>"; };
+		5B65BEE422893ED700D8D68F /* MXImageManager.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = MXImageManager.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5B65BEE522893ED700D8D68F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5B65BEE722893ED700D8D68F /* MXImageManager.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MXImageManager.xcconfig; sourceTree = "<group>"; };
 		5B65BEFA2289547400D8D68F /* ImageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListViewController.m; sourceTree = "<group>"; };
