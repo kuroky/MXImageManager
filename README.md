@@ -3,7 +3,7 @@
 基于SDWebImage的图片管理
 #### 安装使用
 ```Swift
-pod 'MXImageManager' '1.1.5'
+pod 'MXImageManager'  '1.1.5'
 
 AppDelegate.h
 [MXImageCache mx_cancelSDMemoryCache];
@@ -11,7 +11,7 @@ AppDelegate.h
 #### 依赖库
 
 ```Swift
-SDWegImage '5.0.6'
+SDWegImage  '5.0.6'
 ```
 #### 文件结构
 ![](demo.png)
